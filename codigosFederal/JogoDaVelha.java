@@ -10,7 +10,7 @@ public class JogoDaVelha {
 		int cont = 0;
 		int jogadaColuna, jogadaLinha;
 		char jogador;
-		while ((!vitoria(tabuleiro).equals("Vitoria X") || !vitoria(tabuleiro).equals("Vitoria O")) //verifica se ñ houve vitoria nem empate
+		while (!vitoria(tabuleiro).equals("Vitoria X") || !vitoria(tabuleiro).equals("Vitoria O")
 				|| !vitoria(tabuleiro).equals("Empate!!")) {
 			if (cont != 9) {
 				System.out.println("|--1-2-3--|"); // exibe o tabuleiro
@@ -39,7 +39,7 @@ public class JogoDaVelha {
 			} else {
 				break;
 			}
-			if (vitoria(tabuleiro).equals("Vitoria X") || vitoria(tabuleiro).equals("Vitoria O")) {
+			if (vitoria(tabuleiro).equals("Vitoria X") ^ vitoria(tabuleiro).equals("Vitoria O")) {
 				break;
 			}
 		}
@@ -55,51 +55,22 @@ public class JogoDaVelha {
 		if (vitoriaLinha(tabuleiro).equals("X")) {
 			return "Vitoria X";
 		}
+		if (vitoriaLinha(tabuleiro).equals("O")) {
+			return "Vitoria O";
+		}
+		if (vitoriaColuna(tabuleiro).equals("X")) {
+			return "Vitoria X";
+		}
 		if (vitoriaColuna(tabuleiro).equals("O")) {
 			return "Vitoria O";
 		}
+		if (vitoriaDiagonal(tabuleiro).equals("X")) {
+			return "Vitoria X";
+		}
+		if (vitoriaDiagonal(tabuleiro).equals("O")) {
+			return "Vitoria O";
+		}
 		return "Empate!!";
-	}
-
-	private static String vitoriaLinha(char[][] tabuleiro) {
-		int marcacaoX = 0;
-		int marcacaoO = 0;
-		for (int i = 0; i < 3; i++) {
-			if (tabuleiro[0][i] == 'X') {
-				marcacaoX++; // verifica na primeira coluna se há uma marcacao
-			}
-			if (tabuleiro[0][i] == 'O') {
-				marcacaoO++;
-			}
-		}
-		for (int i = 0; i < 3; i++) {
-			if (tabuleiro[1][i] == 'X') {
-				marcacaoX++; // verifica na segunda coluna se há uma marcacao
-			}
-			if (tabuleiro[1][i] == 'O') {
-				marcacaoO++;
-			}
-		}
-		for (int i = 0; i < 3; i++) {
-			if (tabuleiro[2][i] == 'X') {
-				marcacaoX++; // verifica na terceira coluna se há uma marcacao
-			}
-			if (tabuleiro[2][i] == 'O') {
-				marcacaoO++;
-			}
-		}
-
-		if (marcacaoX == 3) {
-			return "X"; // retorna X para indiciar a vitoria de X, se houver 3 marcacoes consecutivas em
-						// uma linha
-		} else {
-			if (marcacaoO == 3) {
-				return "O"; // retorna O para indiciar a vitoria de X, se houver 3 marcacoes consecutivas em
-							// uma linha
-			} else {
-				return "";
-			}
-		}
 	}
 
 	private static String vitoriaColuna(char[][] tabuleiro) {
@@ -107,40 +78,163 @@ public class JogoDaVelha {
 		int marcacaoO = 0;
 		for (int i = 0; i < 3; i++) {
 			if (tabuleiro[i][0] == 'X') {
-				marcacaoX++; // verifica na primeira linha se há uma marcacao
+				marcacaoX++; // verifica na primeira coluna se há uma marcacao
+				if (marcacaoX == 3) {
+					return "X";
+				}
 			}
 			if (tabuleiro[i][0] == 'O') {
 				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
 			}
 		}
+		marcacaoX = 0;
+		marcacaoO = 0;
 		for (int i = 0; i < 3; i++) {
 			if (tabuleiro[i][1] == 'X') {
-				marcacaoX++; // verifica na segunda linha se há uma marcacao
+				marcacaoX++; // verifica na segunda coluna se há uma marcacao
+				if (marcacaoX == 3) {
+					return "X";
+				}
 			}
 			if (tabuleiro[i][1] == 'O') {
 				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
 			}
 		}
+		marcacaoX = 0;
+		marcacaoO = 0;
 		for (int i = 0; i < 3; i++) {
 			if (tabuleiro[i][2] == 'X') {
-				marcacaoX++; // verifica na terceira linha se há uma marcacao
+				marcacaoX++; // verifica na terceira coluna se há uma marcacao
+				if (marcacaoX == 3) {
+					return "X";
+				}
 			}
 			if (tabuleiro[i][2] == 'O') {
 				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
 			}
 		}
 
-		if (marcacaoX == 3) {
-			return "X"; // retorna X para indiciar a vitoria de X, se houver 3 marcacoes consecutivas em
-						// uma coluna
-		} else {
-			if (marcacaoO == 3) {
-				return "O"; // retorna O para indiciar a vitoria de X, se houver 3 marcacoes consecutivas em
-							// uma coluna
-			} else {
-				return "";
-			}
-		}
+		return "";
 	}
 
+	private static String vitoriaLinha(char[][] tabuleiro) {
+		int marcacaoX = 0;
+		int marcacaoO = 0;
+		for (int i = 0; i < 3; i++) {
+			if (tabuleiro[0][i] == 'X') {
+				marcacaoX++; // verifica na primeira linha se há uma marcacao
+				if (marcacaoX == 3) {
+					return "X";
+				}
+			}
+			if (tabuleiro[0][i] == 'O') {
+				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
+			}
+		}
+		marcacaoX = 0;
+		marcacaoO = 0;
+		for (int i = 0; i < 3; i++) {
+			if (tabuleiro[1][i] == 'X') {
+				marcacaoX++; // verifica na segunda linha se há uma marcacao
+				if (marcacaoX == 3) {
+					return "X";
+				}
+			}
+			if (tabuleiro[1][i] == 'O') {
+				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
+			}
+		}
+		marcacaoX = 0;
+		marcacaoO = 0;
+		for (int i = 0; i < 3; i++) {
+			if (tabuleiro[2][i] == 'X') {
+				marcacaoX++; // verifica na terceira linha se há uma marcacao
+				if (marcacaoX == 3) {
+					return "X";
+				}
+			}
+			if (tabuleiro[2][i] == 'O') {
+				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
+			}
+		}
+
+		return "";
+	}
+
+	private static String vitoriaDiagonal(char[][] tabuleiro) {
+		int marcacaoX = 0;
+		int marcacaoO = 0;
+		for (int i = 0; i < 3; i++) {
+			if (tabuleiro[i][i] == 'X') {
+				marcacaoX++;
+				if (marcacaoX == 3) {
+					return "X";
+				}
+			}
+			if (tabuleiro[i][i] == 'O') {
+				marcacaoO++;
+				if (marcacaoO == 3) {
+					return "O";
+				}
+			}
+		} // [2, 0], [1, 1], [0, 2]
+		marcacaoX = 0;
+		marcacaoO = 0;
+
+		if (tabuleiro[0][2] == 'X') {
+			marcacaoX++;
+			if (marcacaoX == 3) {
+				return "X";
+			}
+		}
+		if (tabuleiro[0][2] == 'O') {
+			marcacaoO++;
+			if (marcacaoO == 3) {
+				return "O";
+			}
+		}
+		if (tabuleiro[1][1] == 'X') {
+			marcacaoX++;
+			if (marcacaoX == 3) {
+				return "X";
+			}
+		}
+		if (tabuleiro[1][1] == 'O') {
+			marcacaoO++;
+			if (marcacaoO == 3) {
+				return "O";
+			}
+		}
+		if (tabuleiro[2][0] == 'X') {
+			marcacaoX++;
+			if (marcacaoX == 3) {
+				return "X";
+			}
+		}
+		if (tabuleiro[2][0] == 'O') {
+			marcacaoO++;
+			if (marcacaoO == 3) {
+				return "O";
+			}
+		}
+		return "";
+	}
 }
