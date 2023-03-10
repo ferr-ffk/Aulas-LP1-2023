@@ -10,7 +10,7 @@ public class JogoDaVelha {
 		int cont = 0;
 		int jogadaColuna, jogadaLinha;
 		char jogador;
-		while ((!vitoria(tabuleiro).equals("Vitoria X") || !vitoria(tabuleiro).equals("Vitoria O"))
+		while ((!vitoria(tabuleiro).equals("Vitoria X") || !vitoria(tabuleiro).equals("Vitoria O")) //verifica se ñ houve vitoria nem empate
 				|| !vitoria(tabuleiro).equals("Empate!!")) {
 			if (cont != 9) {
 				System.out.println("|--1-2-3--|"); // exibe o tabuleiro
