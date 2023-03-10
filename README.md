@@ -1,1 +1,2 @@
-# Aulas-LP1-2023
+# Aulas-LP1
+Aulas realizadas no período de 2023, com início em 15 de fevereiro.
